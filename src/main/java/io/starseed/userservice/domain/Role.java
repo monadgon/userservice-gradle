@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static javax.persistence.GenerationType.AUTO;
@@ -19,4 +19,8 @@ public class Role {
     @GeneratedValue(strategy = AUTO)
     private Long id;
     private String name;
+    /*
+    @OneToMany(mappedBy = "role")
+    private Collection<AccountRole> accounts = new ArrayList<>();
+     */
 }

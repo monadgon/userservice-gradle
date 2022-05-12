@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.starseed.userservice.domain.Account;
+import io.starseed.userservice.domain.AccountRole;
 import io.starseed.userservice.domain.Role;
 import io.starseed.userservice.service.AccountService;
 import lombok.Data;
@@ -76,6 +77,7 @@ public class AccountController {
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000 ))
                         .withIssuer(request.getRequestURI().toString())
                         .withClaim("roles", account.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
+                        //.withClaim("roles", account.getRoles().stream().map(AccountRole::getRole).collect(Collectors.toList()))
                         .sign(algorithm);
                 Map<String, String> tokens = new HashMap<>();
                 tokens.put("access_token", access_token);

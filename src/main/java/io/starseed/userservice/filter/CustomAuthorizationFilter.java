@@ -61,7 +61,13 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 new ObjectMapper().writeValue(response.getOutputStream(), error);
               }
           } else {
-              filterChain.doFilter(request, response);
+              Map<String, String> error = new HashMap<>();
+              error.put("error_message", "NO_ACCESS_TOKEN");
+              response.setStatus(FORBIDDEN.value());
+              response.setContentType(APPLICATION_JSON_VALUE);
+              new ObjectMapper().writeValue(response.getOutputStream(), error);
+              //response.addHeader("Authorization", "Fail");
+              //filterChain.doFilter(request, response);
           }
         }
     }

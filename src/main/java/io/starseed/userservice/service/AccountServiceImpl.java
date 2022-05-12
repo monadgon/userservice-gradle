@@ -1,7 +1,9 @@
 package io.starseed.userservice.service;
 
+import io.starseed.userservice.domain.AccountRole;
 import io.starseed.userservice.domain.Role;
 import io.starseed.userservice.domain.Account;
+import io.starseed.userservice.repository.AccountRoleRepository;
 import io.starseed.userservice.repository.RoleRepository;
 import io.starseed.userservice.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AccountRoleRepository accountRoleRepository;  // 사용하지 않는다.
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -39,6 +42,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         account.getRoles().forEach(role -> {
             authorities.add( new SimpleGrantedAuthority(role.getName()));
+            //authorities.add( new SimpleGrantedAuthority(accountRole.getRole().getName()));
         });
         return new org.springframework.security.core.userdetails.User(account.getUsername(), account.getPassword(), authorities);
     }
@@ -62,6 +66,12 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         Account user = accountRepository.findByUsername(username);
         Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
+        /*
+        AccountRole accountRole = new AccountRole();
+        accountRole.setAccount(user);
+        accountRole.setRole(role);
+
+        accountRoleRepository.save(accountRole);*/
     }
 
     @Override

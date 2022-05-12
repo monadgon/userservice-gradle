@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -23,4 +25,7 @@ public class Account {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
+    //@OneToMany(mappedBy = "account", fetch = FetchType.LAZY) //
+    //private Collection<AccountRole> roles = new ArrayList<>(); // N + 1 문제
+    //private Set<AccountRole> roles = new LinkedHashSet<>();
 }

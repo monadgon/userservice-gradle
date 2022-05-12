@@ -32,6 +32,13 @@ public class AccountserviceApplication {
 			accountService.saveRole(new Role(null, "ROLE_ADMIN"));
 			accountService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
 
+			/*
+			accountService.saveRole(new Role(null, "ROLE_USER", new ArrayList<>()));
+			accountService.saveRole(new Role(null, "ROLE_MANAGER",new ArrayList<>()));
+			accountService.saveRole(new Role(null, "ROLE_ADMIN", new ArrayList<>()));
+			accountService.saveRole(new Role(null, "ROLE_SUPER_ADMIN", new ArrayList<>()));
+			*/
+
 			accountService.saveAccount(new Account(null, "John Travolta", "john", "1234", new ArrayList<>()));
 			accountService.saveAccount(new Account(null, "Will Smith", "will", "1234", new ArrayList<>()));
 			accountService.saveAccount(new Account(null, "Jim Carry", "jim", "1234", new ArrayList<>()));
